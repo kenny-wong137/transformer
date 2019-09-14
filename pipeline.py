@@ -62,7 +62,7 @@ def extract_sequences(tokens, seq_len, stride, batch_size):
     return combined_dataset.shuffle(10000).batch(batch_size, drop_remainder=True)
 
 
-def get_data(max_vocab_size=10000, seq_len=32, stride=8, batch_size=64):
+def get_data(max_vocab_size, seq_len, stride, batch_size):
     '''
     Prepare tokenised data.
     

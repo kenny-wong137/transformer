@@ -1,3 +1,4 @@
 data/*
 *.zip
 *.txt
+*.pyc
