@@ -176,7 +176,7 @@ class ClassificationTransformer(tf.keras.models.Model):
         :param inputs: word sequence inputs
                        shape=(batch_size, seq_len), dtype=int32, maxval=vocab_size
         :param training: whether to run dropout in training mode
-        :returns: classification probability, shape=(batch_size, 1), dtype=float32
+        :returns: classification probability, shape=(batch_size,), dtype=float32
         '''
         values = self.embedding_layer(inputs)
         for layer in self.main_layers:
