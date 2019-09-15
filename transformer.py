@@ -1,9 +1,10 @@
 '''
 My own transformer implementation.
 
-We build two models:
-(a) A *language model*. Here, we only have a decoder; there is no encoder.
-(b) A *translator*. This has both a decoder and an encoder.
+We build three models:
+(a) A *language generation model*. Here, we only have a decoder; there is no encoder.
+(b) A *classifier*. This adds a classification head onto the 0th time step of the transformer.
+(c) A *translator*. This has both a decoder and an encoder.
 
 Main differences from the example implementation in the Tensorflow tutorial:
 - The positional embeddings are completely learnable.
