@@ -116,13 +116,12 @@ class TransformerLayer(tf.keras.layers.Layer):
         return self.feed_forward(values, training=training)
 
 
-# Definition of language model.
+# Definition of language generation model.
 
 class GenerationTransformer(tf.keras.models.Model):
     '''Transformer language model'''
     
-    def __init__(self, vocab_size, num_layers, model_dims, attention_depth,
-                 num_heads, hidden_dims):
+    def __init__(self, vocab_size, num_layers, model_dims, attention_depth, num_heads, hidden_dims):
         '''
         :param vocab_size: number of distinct tokens in input
         :param num_layers: number of transformer layers
@@ -150,6 +149,39 @@ class GenerationTransformer(tf.keras.models.Model):
         for layer in self.main_layers:
             values = layer(values, training=training)
         return self.final_layer(values)
+
+
+# Definition of sentiment analysis model.
+        
+class ClassificationTransformer(tf.keras.models.Model):
+    
+    def __init__(self, vocab_size, num_layers, model_dims, attention_depth, num_heads, hidden_dims):
+        '''
+        :param vocab_size: number of distinct tokens in input
+        :param num_layers: number of transformer layers
+        :param model_dims: the embedding size, also the output size of the transformer layers
+        :param attention_depth: the size of a query vector or key vector in an attention unit
+        :param num_heads: the number of attention heads in each each attention unit
+        :param hidden_dims: the size of the hidden layer in the feed-foward units
+        '''
+        super(ClassificationTransformer, self).__init__()
+        self.embedding_layer = WordAndPositionalEmbedding(model_dims, vocab_size)
+        self.main_layers = [TransformerLayer(model_dims, attention_depth, num_heads,
+                                             hidden_dims, False, False)
+                            for _ in range(num_layers)]
+        self.final_layer = tf.keras.layers.Dense(1, activation='sigmoid')
+    
+    def call(self, inputs, training):
+        '''
+        :param inputs: word sequence inputs
+                       shape=(batch_size, seq_len), dtype=int32, maxval=vocab_size
+        :param training: whether to run dropout in training mode
+        :returns: classification probability, shape=(batch_size, 1), dtype=float32
+        '''
+        values = self.embedding_layer(inputs)
+        for layer in self.main_layers:
+            values = layer(values, training=training)
+        return tf.squeeze(self.final_layer(values[:, 0, :]))
 
 
 # Definition of translator.
