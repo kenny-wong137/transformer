@@ -15,6 +15,8 @@ RAW_FILE = os.path.join(FOLDER, 'raw_text.txt')
 START_INDEX = 111
 END_INDEX = 33314
 
+OOV_TOKEN = '<unk>'
+
 
 def download_data():
     if not os.path.exists(FOLDER):
@@ -36,22 +38,25 @@ def load_words():
     return words
 
 
-def tokenize(words, max_vocab_size, oov_token='<unk>'):
+def tokenize(words, max_vocab_size):
     tokenizer = tf.keras.preprocessing.text.Tokenizer(
-                    filters='', num_words=max_vocab_size, oov_token=oov_token)
+                    filters='', num_words=max_vocab_size, oov_token=OOV_TOKEN)
     tokenizer.fit_on_texts(words)
     tokens = tokenizer.texts_to_sequences(words)
     tokens = [item[0] for item in tokens]
     return tokens, tokenizer
 
 
-def extract_sequences(tokens, seq_len, stride, batch_size, num_epochs):
+def extract_sequences(tokens, tokenizer, seq_len, stride, batch_size, num_epochs):
+    unknown_index = tokenizer.word_index[OOV_TOKEN]
+    
     input_seqs = []
     target_seqs = []
     for start_index in range(0, (len(tokens) - seq_len - 1), stride):
-        input_seqs.append(tokens[start_index : start_index + seq_len])
-        target_seqs.append(tokens[start_index + 1 : start_index + seq_len + 1])
-        
+        if unknown_index not in tokens[start_index : start_index + seq_len + 1]:
+            input_seqs.append(tokens[start_index : start_index + seq_len])
+            target_seqs.append(tokens[start_index + 1 : start_index + seq_len + 1])
+
     input_dataset = tf.data.Dataset.from_tensor_slices(np.array(input_seqs))
     target_dataset = tf.data.Dataset.from_tensor_slices(np.array(target_seqs))
     combined_dataset = tf.data.Dataset.zip((input_dataset, target_dataset))
@@ -62,7 +67,7 @@ def get_data(max_vocab_size, seq_len, stride, batch_size, num_epochs):
     download_data()
     words = load_words()
     tokens, tokenizer = tokenize(words, max_vocab_size)
-    dataset = extract_sequences(tokens, seq_len, stride, batch_size, num_epochs)
+    dataset = extract_sequences(tokens, tokenizer, seq_len, stride, batch_size, num_epochs)
     return dataset, tokenizer
 
 
@@ -94,7 +99,6 @@ def demo_step(model, tokenizer, possible_first_words, seq_len):
 def main(max_vocab_size, seq_len, stride, batch_size, num_epochs, 
          num_layers, model_dims, attention_depth, num_heads, hidden_dims,
          num_batches_per_demo, possible_first_words):
-    dataset, tokenizer = get_data(max_vocab_size, seq_len, stride, batch_size, num_epochs)
     '''
     :param max_vocab_size: maximum vocabulary size
     :param seq_len: length of sequences (will chop up the text to make training manageable)
@@ -109,6 +113,7 @@ def main(max_vocab_size, seq_len, stride, batch_size, num_epochs,
     :param num_batches_per_demo: frequency at which we generate samples from model
     :param possible_first_words: list of seed words used for generating samples
     '''
+    dataset, tokenizer = get_data(max_vocab_size, seq_len, stride, batch_size, num_epochs)
     vocab_size = min(len(tokenizer.word_index) + 1, max_vocab_size + 2)
     
     model = GenerationTransformer(vocab_size, num_layers, model_dims,
@@ -123,8 +128,8 @@ def main(max_vocab_size, seq_len, stride, batch_size, num_epochs,
         
         # Demo
         if (batch_index + 1) % num_batches_per_demo == 0:
-            gen_string = demo_step(model, tokenizer, possible_first_words, seq_len)
-            print('Batch {}:\n{}\n'.format(batch_index + 1, gen_string))
+            generated_string = demo_step(model, tokenizer, possible_first_words, seq_len)
+            print('Batch {}:\n... {} ...\n'.format(batch_index + 1, generated_string))
 
 
 if __name__ == '__main__':
@@ -133,11 +138,11 @@ if __name__ == '__main__':
          stride=8,
          batch_size=64,
          num_epochs=50,
-         num_layers=2,
-         model_dims=128,
+         num_layers=3,
+         model_dims=256,
          attention_depth=16,
          num_heads=4,
-         hidden_dims=128,
+         hidden_dims=256,
          num_batches_per_demo=100,
          possible_first_words=['a', 'the', 'i', 'if', 'but', 'why' , '"', 'after', 'his', 'mr']
     )
