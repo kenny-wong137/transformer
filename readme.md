@@ -34,29 +34,29 @@ Samples
 **1) Machine translation.**
 
 ```
-original spanish:  <start> tom lo sabia todo . <end>
-predicted english: <start> tom knew everything . <end>
-actual english:    <start> tom knew everything . <end>
+original spanish:  <start> yo normalmente me doy una ducha antes de ir a la cama . <end>
+predicted english: <start> i usually take me a shower before i go to bed . <end>
+actual english:    <start> i usually take a bath before going to bed . <end>
 
-original spanish:  <start> ese perro parece completamente una persona . <end>
-predicted english: <start> that dog looks pretty good one . <end>
-actual english:    <start> this dog is almost human . <end>
+original spanish:  <start> el se hizo policia . <end>
+predicted english: <start> he became the police . <end>
+actual english:    <start> he became a policeman . <end>
 
-original spanish:  <start> siempre esta preparado . <end>
-predicted english: <start> she is always prepared . <end>
-actual english:    <start> he is always prepared . <end>
+original spanish:  <start> ¿ quereis comer algo antes de que nos vayamos ? <end>
+predicted english: <start> do you want to eat something before we go ? <end>
+actual english:    <start> do you want to eat something before we leave ? <end>
 
-original spanish:  <start> un vaso de vino blanco , por favor . <end>
-predicted english: <start> a glass of wine , please . <end>
-actual english:    <start> a glass of white wine , please . <end>
+original spanish:  <start> tom es mi amigo . <end>
+predicted english: <start> tom is my friend . <end>
+actual english:    <start> tom s my friend . <end>
 
-original spanish:  <start> nunca se es demasiado viejo para aprender . <end>
-predicted english: <start> it is never too old to learn . <end>
-actual english:    <start> it s never too late to learn . <end>
+original spanish:  <start> ¿ me puedo comer esa torta ? <end>
+predicted english: <start> can i eat that cake ? <end>
+actual english:    <start> may i eat this cake ? <end>
 
-original spanish:  <start> supongo que tu no puedes hacerlo . <end>
-predicted english: <start> i guess that you can t do it . <end>
-actual english:    <start> i guess you cannot do it . <end>
+original spanish:  <start> queria que tom tuviera una copia de mi nueva novela . <end>
+predicted english: <start> i wanted tom to have a copy of new novel . <end>
+actual english:    <start> i wanted tom to have a copy of my new novel . <end>
 ```
 
 **2) Language generation.**
@@ -64,23 +64,26 @@ actual english:    <start> i guess you cannot do it . <end>
 [Note that these text fragments do not begin at the start of a sentence or paragraph -- think of them as continuations of existing text.]
 
 ```
-... mr . frank hawley , lawyer and keeping his brief pause by which he had been allowed to grow
-    in bushy beauty and to spread out coral fruit for the birds . little ...
+... after a set ignorance . the other medical reform would , was in a case with the
+       ways of helping to recognize . but in ...
 
-... i wanted to tell bulstrode to bring them into the church under the circumstances ? that
-    depends on your conscience , fred - - how far you have counted the cost , as ...
+... a negative . mary had felt a resistant emotion . he could hardly give his pain ,
+       could be no sooner did or see him ...
 
-... but when i found it excused lydgate . it ' s pretty nigh two hundred - - there ' s more in
-    the box , and nobody knows how much there was . ...
+... i don ' t know you think that i am sure you would do it for you . " " if you
+       will think me ...
 
-... but kindly - - " look up , nicholas . " he raised his eyes with a little start and looked
-    at her half amazed for a moment : her pale face , ...
+... mr . farebrother recurred to her knitting with a dignified satisfaction in her
+       neat fashion , but inspiration could hardly have been easy to be ...
 
-... a doctor , but if known in the world of reasons crowded upon her against any movement of her
-    thought was a poor man , and leaned against the tall back of a ...
+... i was not to be sure of being admired . " i await ladislaw , my life would be
+       offensive capability of criticism , necessarily ...
 
-... " what is that sir james ? " said dorothea , whose spirits had sunk very low , not only at
-    the estimate of his handwriting , but at the vision of himself ...
+... mr . brooke , nodding at dorothea as she said , " but then you will be painted ?
+       " when they are the letters ...
+
+... if you think i shall vote for the better to try and make a good deal of trouble .
+       don ' t you come to ...
 ```
 
 

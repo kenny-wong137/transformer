@@ -173,7 +173,7 @@ if __name__ == '__main__':
     main(max_vocab_size=2500,
          test_size=0.05,
          batch_size=64,
-         num_epochs=25,
+         num_epochs=8,
          num_layers=2,
          model_dims=128,
          attention_depth=16,

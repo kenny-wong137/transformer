@@ -134,10 +134,10 @@ def main(max_vocab_size, seq_len, stride, batch_size, num_epochs,
 
 if __name__ == '__main__':
     main(max_vocab_size=10000,
-         seq_len=32,
+         seq_len=24,
          stride=8,
          batch_size=64,
-         num_epochs=50,
+         num_epochs=15,
          num_layers=3,
          model_dims=256,
          attention_depth=16,

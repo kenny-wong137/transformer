@@ -94,7 +94,7 @@ if __name__ == '__main__':
     main(max_vocab_size=10000,
          seq_len=256,
          batch_size=64,
-         num_epochs=10,
+         num_epochs=5,
          num_layers=4,
          model_dims=256,
          attention_depth=16,
