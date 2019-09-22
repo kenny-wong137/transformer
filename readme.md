@@ -94,3 +94,19 @@ The accuracy on the validation set reaches a peak of around 88% before the model
 This is comparable to performance with an [LSTM](https://www.tensorflow.org/beta/tutorials/text/text_classification_rnn).
 (Though to be fair, the LSTM isn't much better than a [fully-connected network](https://www.tensorflow.org/beta/tutorials/keras/basic_text_classification_with_tfhub). This is because
 understanding long-range interactions between words is far less important in this IMDB sentiment analysis problem than computing frequencies of key words.)
+
+Here is an example of a review, with its model prediction.
+```
+Prediction = 0.999. Actual label = True
+
+i just viewed eddie monroe and i was very impressed the story was easily paced as the plot
+to a surprise ending heartwarming performances action humor and drama filled the screen
+acting by some talented long great script this is the best film that fred carpenter has
+made to date he should be very proud of this work doug score is on the mark craig morris
+is the next tom cruise or brad pitt hard to believe this is a low budget independent film
+just imagine what carpenter can do with a hollywood level budget paul last film and he is
+greatly missed and loved by all he was a wonderful successful talented actor and a great
+human being he will watch over us all and we will never forget his dynamic smile and spirit
+great job to all who in this film a few scene stealing and humorous cameos to break up the
+serious content you will enjoy this film go see it
+```
