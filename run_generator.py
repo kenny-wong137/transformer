@@ -8,12 +8,12 @@ import os
 import urllib
 import re
 
-URL = 'http://www.gutenberg.org/cache/epub/145/pg145.txt'
+URL = 'http://www.gutenberg.org/files/145/145-0.txt'
 FOLDER = 'data/'
 RAW_FILE = os.path.join(FOLDER, 'raw_text.txt')
 
-START_INDEX = 111
-END_INDEX = 33314
+START_INDEX = 149
+END_INDEX = 33305
 
 OOV_TOKEN = '<unk>'
 
@@ -27,12 +27,12 @@ def download_data():
        
 def load_words():
     words = []
-    with open(RAW_FILE, 'r') as infile:
+    with open(RAW_FILE, 'r', encoding='utf-8') as infile:
         for index, line in enumerate(infile):
             if START_INDEX <= index < END_INDEX:
                 line = line.lower().strip('\n')
-                line = re.sub('([?.!,"-:;])', r' \1 ', line)
-                line = re.sub('[^a-z?.!,"-:;]+', ' ', line)
+                line = re.sub('([“”?.!,"-:;])', r' \1 ', line)
+                line = re.sub('[^a-z“”?.!,"-:;]+', ' ', line)
                 for word in line.split():
                     words.append(word)
     return words
@@ -144,5 +144,5 @@ if __name__ == '__main__':
          num_heads=4,
          hidden_dims=256,
          num_batches_per_demo=100,
-         possible_first_words=['a', 'the', 'i', 'if', 'but', 'why' , '"', 'after', 'his', 'mr']
+         possible_first_words=['a', 'the', 'i', 'if', 'but', 'why' , 'after', 'his', 'mr']
     )
