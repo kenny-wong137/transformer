@@ -39,10 +39,6 @@ predicted english: <start> i wanted tom to have a copy of new novel . <end>
 actual english:    <start> i wanted tom to have a copy of my new novel . <end>
 ```
 
-I would say that these translations are of a similar quality to the translations I produced
-in an [earlier exercise](https://github.com/kenny-wong137/deep-learning-exercises/tree/dev/attention)
-using an LSTM plus cross-attention.
-
 
 **2) Language generation**
 
